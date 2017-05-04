@@ -10,10 +10,10 @@ Group:          Applications/Internet
 License:        BSD
 URL:            http://www.filesender.org/
 Source0:        http://repository.filesender.org/releases/%{name}-%{version}.tar.bz2
-Source2:	%{name}.htaccess
-Source3:	%{name}.cron.daily
+Source2:        %{name}.htaccess
+Source3:        %{name}.cron.daily
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch: noarch
+BuildArch:      noarch
 
 Requires: httpd
 Requires: php >= 5.2.0
@@ -57,8 +57,7 @@ rm -rf %{buildroot}
 %{__cp} -p %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.daily/%{name}
 %{__cp} -p ./config-templates/filesender-php.ini %{buildroot}%{_sysconfdir}/php.d/%{name}.ini
 
-%{__cp} -p config/config-dist.php ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php
-%{__sed} -i "s|'/simplesaml/'|'/simplesamlphp/'|g" ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php
+%{__cp} -p config/config-sample-meijer.php ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php
 %{__cp} -p ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config.php
 
 %{__rm} -f %{buildroot}%{_datadir}/%{name}/*.txt
