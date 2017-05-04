@@ -1,21 +1,15 @@
-# The macro prerel and the Version and Release tags are set by the builder-scripts
+#
 # Also the Source0 URL will be adapted by the builder-scripts when needed
 #
-# When this is a pre-release, define the prerel field
-%define prerel $PRERELEASE
-# also need a fsprerel field for a pre-release to get the correct tarball
-%if 0%{?prerel:1}
-%define fsprerel -%{prerel}
-%endif
 Name:           filesender
-Version:        1.5
+Version:        2.0
 Release:        1%{?dist}
 Summary:        Sharing large files with a browser
 
 Group:          Applications/Internet
 License:        BSD
 URL:            http://www.filesender.org/
-Source0:        http://repository.filesender.org/releases/%{name}-%{version}%{?fsprerel}.tar.gz
+Source0:        http://repository.filesender.org/releases/%{name}-%{version}.tar.bz2
 Source2:	%{name}.htaccess
 Source3:	%{name}.cron.daily
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -43,7 +37,7 @@ The software is not intended as a permanent file publishing platform.
 
 
 %prep
-%setup -q -n %{name}-%{version}%{?fsprerel}
+%setup -q -n %{name}-%{version}
 
 %build
 
@@ -100,8 +94,8 @@ rm -rf %{buildroot}
 
 
 %changelog
-* %(date '+%a %b %d %Y') FileSender Development <filesender-dev@filesender.org> %{version}-%{release}
-- Release %{version}%{?fsprerel}
+* Thu May 04 2017 FileSender Development <filesender-dev@filesender.org> 2.0-1
+- Release 2.0
 
 * Sun Mar 03 2013 FileSender Development <filesender-dev@filesender.org> 1.5-1
 - Release 1.5
