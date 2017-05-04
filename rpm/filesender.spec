@@ -78,7 +78,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGELOG.txt  INSTALL.txt  LICENCE.txt  README.txt
+%doc CONTRIBUTE.md  LICENSE  README.md
 %{_datadir}/%{name}/
 %dir %{_sysconfdir}/%{name}/
 %attr(0640,root,apache) %{_sysconfdir}/%{name}/config-dist.php
