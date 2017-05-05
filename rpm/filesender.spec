@@ -52,13 +52,13 @@ rm -rf %{buildroot}
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{name}/tmp
 %{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
 
-%{__cp} -ad ./* %{buildroot}%{_datadir}/%{name}
+%{__cp} -ad ./*       %{buildroot}%{_datadir}/%{name}
 %{__cp} -p %{SOURCE2} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 %{__cp} -p %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.daily/%{name}
-%{__cp} -p ./config-templates/filesender-php.ini %{buildroot}%{_sysconfdir}/php.d/%{name}.ini
 
-%{__cp} -p config/config-sample-meijer.php ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php
-%{__cp} -p ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config-dist.php ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/config.php
+%{__cp} -p config-templates/filesender-php.ini                %{buildroot}%{_sysconfdir}/php.d/%{name}.ini
+%{__cp} -p config/config-sample-meijer.php                    %{buildroot}%{_sysconfdir}/%{name}/config-dist.php
+%{__cp} -p %{buildroot}%{_sysconfdir}/%{name}/config-dist.php %{buildroot}%{_sysconfdir}/%{name}/config.php
 
 %{__rm} -f %{buildroot}%{_datadir}/%{name}/*.txt
 %{__rm} -f %{buildroot}%{_datadir}/%{name}/*.specs
@@ -68,10 +68,10 @@ rm -rf %{buildroot}
 %{__rm} -rf %{buildroot}%{_datadir}/%{name}/log
 %{__rm} -rf %{buildroot}%{_datadir}/%{name}/files
 
-ln -s ../../../..%{_sysconfdir}/%{name} %{buildroot}%{_datadir}/%{name}/config
-ln -s ../../..%{_localstatedir}/lib/%{name}/tmp %{buildroot}%{_datadir}/%{name}/tmp
-ln -s ../../../..%{_localstatedir}/lib/%{name}/files %{buildroot}%{_datadir}/%{name}/files
-ln -s ../../..%{_localstatedir}/log/%{name} %{buildroot}%{_datadir}/%{name}/log
+ln -s %{_sysconfdir}/%{name}              %{buildroot}%{_datadir}/%{name}/config
+ln -s %{_localstatedir}/lib/%{name}/tmp   %{buildroot}%{_datadir}/%{name}/tmp
+ln -s %{_localstatedir}/lib/%{name}/files %{buildroot}%{_datadir}/%{name}/files
+ln -s %{_localstatedir}/log/%{name}       %{buildroot}%{_datadir}/%{name}/log
 
 %clean
 rm -rf %{buildroot}
