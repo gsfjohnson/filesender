@@ -70,19 +70,21 @@ class DBI {
         
         // Build dsn from individual components if not defined
         if(!$config['dsn']) {
-            if(!$config['type']) $config['type'] = 'pgsql';
-            
-            $params = array();
-            
-            if(!$config['host']) throw new DBIConnexionMissingParameterException('host');
-            $params[] = 'host='.$config['host'];
-            
+            if ( ! $config['type'] ) $config['type'] = 'pgsql';
             if(!$config['database']) throw new DBIConnexionMissingParameterException('database');
-            $params[] = 'dbname='.$config['database'];
-            
-            if($config['port']) $params[] = 'port='.$config['port'];
-            
-            $config['dsn'] = $config['type'].':'.implode(';', $params);
+            if ( strtolower($config['type']) === 'sqlite' ) {
+                $config['dsn'] = 'sqlite:/var/lib/filesender/'. $config['database'] .'.sqlite';
+            }
+            else {
+                $params = array();
+
+                if(!$config['host']) throw new DBIConnexionMissingParameterException('host');
+                $params[] = 'host='.$config['host'];
+                $params[] = 'dbname='.$config['database'];
+                if($config['port']) $params[] = 'port='.$config['port'];
+
+                $config['dsn'] = $config['type'].':'.implode(';', $params);
+            }
         }
         
         // Check that required parameters are not empty
