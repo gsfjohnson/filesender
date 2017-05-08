@@ -60,7 +60,7 @@ rm -rf %{buildroot}
 %{__cp} -p %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.daily/%{realname}
 
 %{__cp} -p config-templates/filesender-php.ini                %{buildroot}%{_sysconfdir}/php.d/%{realname}.ini
-%{__cp} -p config/config-sample-meijer.php                    %{buildroot}%{_sysconfdir}/%{realname}/config-dist.php
+%{__cp} -p config/config-dist.php                             %{buildroot}%{_sysconfdir}/%{realname}/config-dist.php
 %{__cp} -p %{buildroot}%{_sysconfdir}/%{realname}/config-dist.php %{buildroot}%{_sysconfdir}/%{realname}/config.php
 
 %{__rm} -f %{buildroot}%{_datadir}/%{realname}/*.txt
