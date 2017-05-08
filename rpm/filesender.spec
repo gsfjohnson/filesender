@@ -1,7 +1,9 @@
 #
 # Also the Source0 URL will be adapted by the builder-scripts when needed
 #
-Name:           filesender
+%define realname filesender
+
+Name:           filesender20
 Version:        2.0
 Release:        1%{?dist}
 Summary:        Sharing large files with a browser
@@ -9,10 +11,10 @@ Summary:        Sharing large files with a browser
 Group:          Applications/Internet
 License:        BSD
 URL:            http://www.filesender.org/
-Source0:        http://repository.filesender.org/releases/%{name}-%{version}.tar.bz2
-Source2:        %{name}.htaccess
-Source3:        %{name}.cron.daily
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://repository.filesender.org/releases/%{realname}-%{version}.tar.bz2
+Source2:        %{realname}.htaccess
+Source3:        %{realname}.cron.daily
+BuildRoot:      %{_tmppath}/%{realname}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 Requires: httpd
@@ -37,41 +39,41 @@ The software is not intended as a permanent file publishing platform.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{realname}-%{version}
 
 %build
 
 %install
 rm -rf %{buildroot}
-%{__mkdir} -p %{buildroot}%{_datadir}/%{name}
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/%{name}
+%{__mkdir} -p %{buildroot}%{_datadir}/%{realname}
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/%{realname}
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/cron.daily
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/php.d
-%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{name}/files
-%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{name}/tmp
-%{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
+%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{realname}/files
+%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{realname}/tmp
+%{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{realname}
 
-%{__cp} -ad ./*       %{buildroot}%{_datadir}/%{name}
-%{__cp} -p %{SOURCE2} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
-%{__cp} -p %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.daily/%{name}
+%{__cp} -ad ./*       %{buildroot}%{_datadir}/%{realname}
+%{__cp} -p %{SOURCE2} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{realname}.conf
+%{__cp} -p %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.daily/%{realname}
 
-%{__cp} -p config-templates/filesender-php.ini                %{buildroot}%{_sysconfdir}/php.d/%{name}.ini
-%{__cp} -p config/config-sample-meijer.php                    %{buildroot}%{_sysconfdir}/%{name}/config-dist.php
-%{__cp} -p %{buildroot}%{_sysconfdir}/%{name}/config-dist.php %{buildroot}%{_sysconfdir}/%{name}/config.php
+%{__cp} -p config-templates/filesender-php.ini                %{buildroot}%{_sysconfdir}/php.d/%{realname}.ini
+%{__cp} -p config/config-sample-meijer.php                    %{buildroot}%{_sysconfdir}/%{realname}/config-dist.php
+%{__cp} -p %{buildroot}%{_sysconfdir}/%{realname}/config-dist.php %{buildroot}%{_sysconfdir}/%{realname}/config.php
 
-%{__rm} -f %{buildroot}%{_datadir}/%{name}/*.txt
-%{__rm} -f %{buildroot}%{_datadir}/%{name}/*.specs
+%{__rm} -f %{buildroot}%{_datadir}/%{realname}/*.txt
+%{__rm} -f %{buildroot}%{_datadir}/%{realname}/*.specs
 
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/config
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/tmp
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/log
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/files
+%{__rm} -rf %{buildroot}%{_datadir}/%{realname}/config
+%{__rm} -rf %{buildroot}%{_datadir}/%{realname}/tmp
+%{__rm} -rf %{buildroot}%{_datadir}/%{realname}/log
+%{__rm} -rf %{buildroot}%{_datadir}/%{realname}/files
 
-ln -s %{_sysconfdir}/%{name}              %{buildroot}%{_datadir}/%{name}/config
-ln -s %{_localstatedir}/lib/%{name}/tmp   %{buildroot}%{_datadir}/%{name}/tmp
-ln -s %{_localstatedir}/lib/%{name}/files %{buildroot}%{_datadir}/%{name}/files
-ln -s %{_localstatedir}/log/%{name}       %{buildroot}%{_datadir}/%{name}/log
+ln -s %{_sysconfdir}/%{realname}              %{buildroot}%{_datadir}/%{realname}/config
+ln -s %{_localstatedir}/lib/%{realname}/tmp   %{buildroot}%{_datadir}/%{realname}/tmp
+ln -s %{_localstatedir}/lib/%{realname}/files %{buildroot}%{_datadir}/%{realname}/files
+ln -s %{_localstatedir}/log/%{realname}       %{buildroot}%{_datadir}/%{realname}/log
 
 %clean
 rm -rf %{buildroot}
@@ -79,21 +81,21 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc CONTRIBUTE.md  LICENSE  README.md
-%{_datadir}/%{name}/
-%dir %{_sysconfdir}/%{name}/
-%attr(0640,root,apache) %{_sysconfdir}/%{name}/config-dist.php
-%config(noreplace) %attr(0640,root,apache) %{_sysconfdir}/%{name}/config.php
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
-%config(noreplace) %{_sysconfdir}/php.d/%{name}.ini
-%config(noreplace) %attr(0755,root,root) %{_sysconfdir}/cron.daily/%{name}
-%dir %{_localstatedir}/lib/%{name}/
-%dir %attr(0750,apache,apache) %{_localstatedir}/lib/%{name}/tmp
-%dir %attr(0750,apache,apache) %{_localstatedir}/lib/%{name}/files
-%dir %attr(0750,apache,apache) %{_localstatedir}/log/%{name}
+%{_datadir}/%{realname}/
+%dir %{_sysconfdir}/%{realname}/
+%attr(0640,root,apache) %{_sysconfdir}/%{realname}/config-dist.php
+%config(noreplace) %attr(0640,root,apache) %{_sysconfdir}/%{realname}/config.php
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/%{realname}.conf
+%config(noreplace) %{_sysconfdir}/php.d/%{realname}.ini
+%config(noreplace) %attr(0755,root,root) %{_sysconfdir}/cron.daily/%{realname}
+%dir %{_localstatedir}/lib/%{realname}/
+%dir %attr(0750,apache,apache) %{_localstatedir}/lib/%{realname}/tmp
+%dir %attr(0750,apache,apache) %{_localstatedir}/lib/%{realname}/files
+%dir %attr(0750,apache,apache) %{_localstatedir}/log/%{realname}
 
 
 %changelog
-* Thu May 04 2017 FileSender Development <filesender-dev@filesender.org> 2.0-1
+* Sun May 07 2017 FileSender Development <filesender-dev@filesender.org> 2.0-1
 - Release 2.0
 
 * Sun Mar 03 2013 FileSender Development <filesender-dev@filesender.org> 1.5-1
