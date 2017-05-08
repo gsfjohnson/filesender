@@ -168,7 +168,7 @@ class DatabaseSqlite {
         }
         
         // Check default
-        if(array_key_exists('default', $definition)) {
+        if( 0 && array_key_exists('default', $definition)) {
             if(is_null($definition['default'])) {
                 if(!is_null($column_dfn['Default'])) {
                     $logger($column.' default is not null');
