@@ -41,7 +41,7 @@ class Installer {
     public static function run() {
         echo 'Starting install'."\n";
         
-        $running = Upgrader::runningVersion();
+        $running = Version::running();
         if($running > 1)
             throw new Exception('Already installed (maybe you wanted to run the upgrader ?), exiting');
         
@@ -53,7 +53,7 @@ class Installer {
         echo 'Creating database structure'."\n";
         include FILESENDER_BASE.'/scripts/upgrade/database.php';
         
-        Version::update();
+        Version::updated();
         
         echo 'Done installing'."\n";
     }
